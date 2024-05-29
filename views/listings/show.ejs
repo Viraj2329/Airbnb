@@ -1,0 +1,73 @@
+<% layout("/layouts/boilerplate") %>
+<script>
+    const mapToken = "<%= process.env.MAP_TOKEN %>";
+    const listing = <%- JSON.stringify(listing) %>;
+</script>
+
+<div class="row mt-5">
+    <div class="col-lg-8 offset-lg-2">
+        <h3><b><%= listing.title %> </b></h3>
+        <div class="card listing-card">
+            <img src="<%= listing.image.url %>" class="card-img-top mt-3 listing[image]" alt="listing_image">
+            <div class="card-body mt-3">
+                <p class="card-text"><i><b>@<%= listing.owner.username %></b></i></p>
+                    
+                <p class="card-text"> <%= listing.description %> </p>
+                <p class="card-text">  &#8377; <%= listing.price.toLocaleString("en-IN"); %> </p>
+                <p class="card-text">  <%= listing.location %> </p>
+                <p class="card-text">  <%= listing.country %> </p>
+            </div>
+        </div>
+        <br><br>
+        <% if(curntUser && listing.owner._id.equals(curntUser._id)) { %>
+        <div>
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn">Edit Listing</a>
+            <br><br>
+            <form method="post" action="/listings/<%= listing._id %>?_method=DELETE">
+                <button class="btn btn-dark delete-btn">Delete</button>
+            </form>
+        </div>
+        <% } %>
+        <br><br>
+    </div>
+    
+    <div class="col-lg-8 offset-lg-2 mb-3">
+        <hr />
+        <% if(curntUser) { %>
+        <h4>Leave a Review</h4>
+        <form action="/listings/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
+            <div class="mb-3 mt-3">
+                <label for="rating" class="form-label">Rating</label>
+                <fieldset class="starability-slot">
+                    <!-- Radio buttons for star rating -->
+                </fieldset>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="comment" class="form-label">Comment</label>
+                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+                <div class="invalid-feedback">Please add some comments for review</div>
+            </div>
+            <button class="btn btn-outline-dark">Submit</button>
+        </form>
+        <% } %>
+
+        
+        <% if(listing.reviews.length > 0) { %>
+        <div class="row">
+            <p><b>All Reviews</b></p>
+            <% for(review of listing.reviews) { %>     
+                <div class="card col-lg-5 col-md-6 col-sm-12 ms-lg-3 mb-3">
+                    <!-- Review content -->
+                </div>
+            <% } %>
+        </div>
+        <% } %>
+        
+    </div>
+    <div class="col-lg-6 offset-lg-3 mb-3">
+        <h3>Where you'll be</h3>
+        <div id="map"></div>
+    </div>
+</div>
+
+<script src="/js/map.js"></script>

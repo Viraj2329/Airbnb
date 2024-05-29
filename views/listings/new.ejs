@@ -1,0 +1,59 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3">
+    <div class="col-lg-8 col-md-10 offset-lg-2 offset-md-1">
+        <h3><u><b>Create a New Listing</b></u></h3>
+        <br><br>
+        <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label"><b>Title</b></label>
+                <input type="text" placeholder="Enter Title" name="listing[title]" class="form-control" required/>
+                <div class="invalid-feedback"> <!-- bootstrap error message -->
+                    Please enter a valid Title.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label"><b>Description</b></label>
+                <textarea name="listing[description]" cols="30" rows="10" class="form-control" required></textarea>
+                <div class="invalid-feedback"> <!-- bootstrap error message -->
+                    Please enter a valid description.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label"><b>Upload Listing Image</b></label>
+                <input type="file" name="listing[image]" class="form-control" />
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label"><b>Price</b></label>
+                    <input placeholder="1200" name="listing[price]" class="form-control" required/>
+                    <div class="invalid-feedback"> <!-- bootstrap error message -->
+                        Please enter a valid price.
+                    </div>
+                </div>
+
+                <div class="mb-3 col-md-8">
+                    <label for="country" class="form-label"><b>Country</b></label>
+                    <input type="text" placeholder="India" name="listing[country]" class="form-control" required/>
+                    <div class="invalid-feedback"> <!-- bootstrap error message -->
+                        Please enter a valid country.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="location" class="form-label" ><b>Location</b></label>
+                <input type="text" placeholder="Goa,Mumbai etc." name="listing[location]" class="form-control" required />
+                <div class="invalid-feedback"> <!-- bootstrap error message -->
+                    Please enter a valid location.
+                </div>
+            </div>
+
+            <button class="btn btn-dark add-btn mt-3">Add</button>
+            <br><br><br>
+        </form>
+    </div>
+</div>
